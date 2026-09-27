@@ -28,6 +28,7 @@ repos:
         args: [--style=file]
       - id: clang-tidy
         args: [--config-file=.clang-tidy]
+        exclude: ^include/config/json-config/languages/templates/
 
   # ----------------------------------------------------------------------------
   # 3. RUST (Cargo fmt y Clippy - Sistema Local)
