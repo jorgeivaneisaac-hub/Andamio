@@ -1,0 +1,140 @@
+{
+  "tools": {
+    "git": {
+      "name": "Git",
+      "description": "Sistema de control de versiones distribuido.",
+      "gestor": {
+        "apt": "sudo apt-get install -y git",
+        "pacman": "sudo pacman -S --noconfirm git",
+        "winget": "winget install --id Git.Git -e"
+      }
+    },
+    "clang": {
+      "name": "Clang",
+      "description": "Compilador de C, C++ y Objective-C basado en LLVM.",
+      "gestor": {
+        "apt": "sudo apt-get install -y clang",
+        "pacman": "sudo pacman -S --noconfirm clang",
+        "winget": "winget install --id LLVM.LLVM -e"
+      }
+    },
+    "cmake": {
+      "name": "CMake",
+      "description": "Sistema de gestión de compilación multiplataforma.",
+      "gestor": {
+        "apt": "sudo apt-get install -y cmake",
+        "pacman": "sudo pacman -S --noconfirm cmake",
+        "winget": "winget install --id Kitware.CMake -e"
+      }
+    },
+    "python": {
+      "name": "Python",
+      "description": "Lenguaje interpretado de alto nivel.",
+      "gestor": {
+        "apt": "sudo apt-get install -y python3",
+        "pacman": "sudo pacman -S --noconfirm python",
+        "winget": "winget install --id Python.Python.3.12 -e"
+      }
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "description": "Entorno de ejecución de JavaScript basado en V8.",
+      "gestor": {
+        "apt": "sudo apt-get install -y nodejs npm",
+        "pacman": "sudo pacman -S --noconfirm nodejs npm",
+        "winget": "winget install --id OpenJS.NodeJS -e"
+      }
+    },
+    "cargo": {
+      "name": "Rust (Cargo)",
+      "description": "Gestor de paquetes y sistema de compilación de Rust.",
+      "nota": "apt y pacman instalan una versión de Rust fija y desactualizada, sin rustup para gestionar versiones. Es una limitación conocida; considerar rustup.rs como alternativa futura.",
+      "gestor": {
+        "apt": "sudo apt-get install -y cargo",
+        "pacman": "sudo pacman -S --noconfirm rust",
+        "winget": "winget install --id Rustlang.Rustup -e"
+      }
+    },
+    "go": {
+      "name": "Go",
+      "description": "Lenguaje compilado de Google, orientado a servicios y CLI.",
+      "gestor": {
+        "apt": "sudo apt-get install -y golang-go",
+        "pacman": "sudo pacman -S --noconfirm go",
+        "winget": "winget install --id GoLang.Go -e"
+      }
+    },
+    "java": {
+      "name": "Java (OpenJDK)",
+      "description": "Kit de desarrollo de Java.",
+      "gestor": {
+        "apt": "sudo apt-get install -y default-jdk",
+        "pacman": "sudo pacman -S --noconfirm jdk-openjdk",
+        "winget": "winget install --id Microsoft.OpenJDK.21 -e"
+      }
+    },
+    "dotnet": {
+      "name": ".NET SDK (C#)",
+      "description": "SDK oficial de .NET; incluye el compilador Roslyn (csc) y 'dotnet new'.",
+      "gestor": {
+        "apt": "sudo apt-get install -y dotnet-sdk-8.0",
+        "pacman": "sudo pacman -S --noconfirm dotnet-sdk",
+        "winget": "winget install --id Microsoft.DotNet.SDK.8 -e"
+      }
+    },
+    "ruby": {
+      "name": "Ruby",
+      "description": "Lenguaje interpretado dinámico.",
+      "gestor": {
+        "apt": "sudo apt-get install -y ruby-full",
+        "pacman": "sudo pacman -S --noconfirm ruby",
+        "winget": "winget install --id RubyInstallerTeam.Ruby.3.3 -e"
+      }
+    },
+    "gfortran": {
+      "name": "GFortran",
+      "description": "Compilador de Fortran de GNU.",
+      "nota": "Sin paquete winget nativo confiable; en Windows normalmente requiere MSYS2 (fuera del alcance de winget directo). Tratar como 'sin instalador automático en Windows' por ahora.",
+      "gestor": {
+        "apt": "sudo apt-get install -y gfortran",
+        "pacman": "sudo pacman -S --noconfirm gcc-fortran"
+      }
+    },
+    "gnucobol": {
+      "name": "GnuCOBOL",
+      "description": "Compilador de COBOL de código abierto (cobc).",
+      "nota": "En Arch/pacman, gnucobol solo está disponible vía AUR, no en los repos oficiales; el comando de pacman de abajo fallará en un Arch limpio sin un ayudante de AUR (yay, paru). Sin paquete winget conocido y estable.",
+      "gestor": {
+        "apt": "sudo apt-get install -y gnucobol4",
+        "pacman": "yay -S --noconfirm gnucobol"
+      }
+    },
+    "docker": {
+      "name": "Docker",
+      "description": "Plataforma de contenedores.",
+      "gestor": {
+        "apt": "sudo apt-get install -y docker.io",
+        "pacman": "sudo pacman -S --noconfirm docker",
+        "winget": "winget install --id Docker.DockerDesktop -e"
+      }
+    },
+    "kubectl": {
+      "name": "kubectl (Kubernetes CLI)",
+      "description": "Cliente de línea de comandos para Kubernetes.",
+      "gestor": {
+        "apt": "sudo apt-get install -y kubectl",
+        "pacman": "sudo pacman -S --noconfirm kubectl",
+        "winget": "winget install --id Kubernetes.kubectl -e"
+      }
+    },
+    "vscode": {
+      "name": "Visual Studio Code",
+      "description": "Editor de código de Microsoft.",
+      "nota": "En apt requiere agregar antes el repositorio oficial de Microsoft; 'apt-get install code' falla en una instalación limpia sin ese paso previo. Tratar como 'sin instalador automático en apt' por ahora, o resolverlo agregando el repo antes de este comando.",
+      "gestor": {
+        "pacman": "sudo pacman -S --noconfirm code",
+        "winget": "winget install --id Microsoft.VisualStudioCode -e"
+      }
+    }
+  }
+}

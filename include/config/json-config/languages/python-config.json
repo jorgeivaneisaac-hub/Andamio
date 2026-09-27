@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "extensiones": [".py"],
+  "carpetas": ["src"],
+  "niveles": {
+    "1": {
+      "hola_mundo": {
+        "ruta": "src/main.py",
+        "contenido": "def main():\n    print(\"hola mundo\")  # imprime texto en pantalla\n\n\nif __name__ == \"__main__\":\n    main()\n"
+      },
+      "comando_init": null,
+      "config_extra": {}
+    },
+    "2": {
+      "hola_mundo": {
+        "ruta": "src/main.py",
+        "contenido": "def main():\n    print(\"hola mundo\")\n\n\nif __name__ == \"__main__\":\n    main()\n"
+      },
+      "comando_init": null,
+      "config_extra": {
+        "requirements.txt": ""
+      }
+    },
+    "3": {
+      "hola_mundo": {
+        "ruta": "src/main.py",
+        "contenido": "..."
+      },
+      "comando_init": "python3 -m venv .venv",
+      "config_extra": {
+        "pyproject.toml": "..."
+      }
+    }
+  }
+}
