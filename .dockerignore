@@ -1,0 +1,29 @@
+# Control de versiones y Git
+.git
+.github
+.gitlab
+.gitignore
+.gitattributes
+
+# Entornos virtuales y configuraciones de editores
+.vscode
+.devcontainer
+AGENTS
+docs
+assets
+tests
+
+# Archivos de reportes, CI y Analizadores
+.changes
+PSScriptAnalyzerSettings.psd1
+.clang-tidy
+.editorconfig
+.pre-commit-config.yaml
+CHANGELOG.md
+CONTRIBUTING.md
+README.md
+Roadmap.html
+LICENSE.txt
+
+# El propio directorio donde guardarás los respaldos de Docker
+Docker/*.tar

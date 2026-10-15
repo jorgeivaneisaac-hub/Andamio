@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: template-ps1-job
+  labels:
+    app: template-initializer
+spec:
+  template:
+    metadata:
+      labels:
+        app: template-initializer
+    spec:
+      containers:
+        - name: powershell-executor
+          image: template-ps1:latest # El nombre exacto de la imagen que compilaste
+          imagePullPolicy: IfNotPresent # OBLIGATORIO: Usa tu imagen local sin buscar en internet
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1001
+            readOnlyRootFilesystem: false # Permite que PowerShell escriba en /app/Data si lo requiere
+      restartPolicy: OnFailure # Si el script falla, Kubernetes lo reintenta. Si termina bien, se detiene.
+  backoffLimit: 3 # Número máximo de reintentos si el script da error
