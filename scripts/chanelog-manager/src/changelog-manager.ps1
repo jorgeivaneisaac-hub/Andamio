@@ -32,7 +32,11 @@ param(
 )
 
 # Configuración de Rutas Seguras (Absolutas basadas en la raíz del workspace)
-$WorkspaceRoot = $PSScriptRoot
+$WorkspaceRoot = (git rev-parse --show-toplevel 2>$null)
+if (-not $WorkspaceRoot) {
+    $WorkspaceRoot = $PSScriptRoot
+}
+
 $ChangesDir = Join-Path $WorkspaceRoot ".changes"
 $ChangelogFile = Join-Path $WorkspaceRoot "CHANGELOG.md"
 
@@ -135,7 +139,8 @@ elseif ($Action -eq "generate") {
         if (Test-Path $ChangelogFile) {
             $ExistingContent = Get-Content $ChangelogFile -Raw -Encoding utf8
             Set-Content -Path $ChangelogFile -Value ($LogEntry + "`n" + $ExistingContent) -Encoding utf8 -ErrorAction Stop
-        } else {
+        }
+        else {
             Set-Content -Path $ChangelogFile -Value $LogEntry -Encoding utf8 -ErrorAction Stop
         }
 

@@ -1,0 +1,16 @@
+{
+  "version_actual": 1,
+  "versiones_soportadas_hacia_atras": 3,
+  "reglas_de_migraciones": {
+    "1": {
+      "migracion": "migracion_1_a_2",
+      "descripcion": "Migración de la versión 1 a la versión 2",
+      "rules": null
+    },
+    "2": {
+      "migracion": "migracion_2_a_3",
+      "descripcion": "Migración de la versión 2 a la versión 3",
+      "rules": null
+    }
+  }
+}

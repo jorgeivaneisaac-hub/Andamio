@@ -1,5 +1,9 @@
 # Project Master Template
 
+<div align="center">
+  <img src="assets/repo/docs/logo.svg" width="400" alt="Logo de Project Master Template">
+</div>
+
 Plantilla de ingeniería de software modular y lista para producción, diseñada para iniciar proyectos multi-lenguaje con flujos automatizados e integración de inteligencia artificial.
 
 ---

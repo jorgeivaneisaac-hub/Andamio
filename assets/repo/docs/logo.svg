@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <!-- Fondo Oscuro -->
+  <rect width="100%" height="100%" fill="#0B0F17" rx="20" />
+
+  <!-- Isotipo Ultra Minimalista -->
+  <g transform="translate(0, 10)">
+    <!-- Pata Izquierda -->
+    <path d="M140 280 L200 120 L225 120 L165 280 Z" fill="#FF7A00" />
+
+    <!-- Pata Derecha -->
+    <path d="M260 280 L200 120 L175 120 L235 280 Z" fill="#FFA726" opacity="0.9" />
+
+    <!-- Cúspide / Nodo Único -->
+    <circle cx="200" cy="105" r="8" fill="#FFFFFF" />
+  </g>
+
+  <!-- Tipografía Limpia -->
+  <text x="200" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="700" fill="#F8FAFC" text-anchor="middle" letter-spacing="8">
+    ANDAMIO
+  </text>
+</svg>

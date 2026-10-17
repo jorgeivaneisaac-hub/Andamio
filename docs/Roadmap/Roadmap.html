@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Andamio — Roadmap</title>
+<style>
+:root{--bg:#f7f6f2;--fg:#1d1c1a;--mut:#6b6860;--card:#fff;--bd:#e3e0d8;--ac:#c2410c;--ac2:#0f766e;--ok:#15803d;--warn:#b45309;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151412;--fg:#ece9e2;--mut:#a09c92;--card:#1f1d1a;--bd:#33302b;--ac:#fb923c;--ac2:#2dd4bf;--ok:#4ade80;--warn:#fbbf24}}
+:root[data-theme="dark"]{--bg:#151412;--fg:#ece9e2;--mut:#a09c92;--card:#1f1d1a;--bd:#33302b;--ac:#fb923c;--ac2:#2dd4bf;--ok:#4ade80;--warn:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(2rem,6vw,3rem);margin:.2em 0;letter-spacing:-.02em}
+h2{font-size:1.35rem;margin:2.2em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--ac)}
+h3{margin:0 0 .4em;font-size:1.05rem}
+p{margin:.4em 0}
+.hero{padding:28px 20px;border:1px solid var(--bd);border-radius:16px;background:linear-gradient(135deg,var(--card),var(--bg));border-left:6px solid var(--ac)}
+.hero p{color:var(--mut);max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:.8rem;padding:3px 10px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mut);text-decoration:none}
+a.chip:hover{border-color:var(--ac);color:var(--ac)}
+.chip.k{border-color:var(--ac);color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;border-top:4px solid var(--ac2)}
+.card.v{border-top-color:var(--ac)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;color:#fff;background:var(--ac);border-radius:6px;padding:1px 8px;margin-right:6px}
+ul{margin:.3em 0;padding-left:1.1em}
+li{margin:.25em 0;font-size:.93rem}
+li::marker{color:var(--ac)}
+.ok li::marker{color:var(--ok)}
+.wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;background:var(--card);padding:10px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bd);vertical-align:top}
+th{color:var(--mut);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+.s{font-weight:700;white-space:nowrap}.s.ok{color:var(--ok)}.s.wip{color:var(--warn)}.s.no{color:var(--mut)}
+.note{border-left:4px solid var(--warn);background:var(--card);padding:10px 14px;border-radius:8px;margin:12px 0;font-size:.92rem}
+pre.mermaid{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;overflow-x:auto;text-align:center}
+code{font:.85em ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1px solid var(--bd);border-radius:4px;padding:0 4px}
+footer{margin-top:3em;color:var(--mut);font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <h1>🏗️ Andamio</h1>
+  <p><strong>Andamio acompaña a la persona desde su primer «hola mundo» hasta proyectos maduros, en español y sin obligarla a aprender un motor de plantillas.</strong></p>
+  <p>Generador interactivo de proyectos: llama a los creadores oficiales de cada lenguaje y añade encima estructura, CI, pre-commit, gobernanza y contexto para agentes de IA.</p>
+  <div class="chips">
+    <span class="chip k">Pre-0.1</span><span class="chip">PowerShell 7+</span><span class="chip">Repo privado</span><span class="chip">13 lenguajes en el árbol</span>
+    <a class="chip" href="#arq">Arquitectura</a><a class="chip" href="#ruta">Ruta</a><a class="chip" href="#hitos">Hitos</a><a class="chip" href="#lang">Lenguajes</a><a class="chip" href="#dec">Decisiones</a><a class="chip" href="#desc">Descartado</a><a class="chip" href="#limp">Limpieza</a><a class="chip" href="#tesis">Tesis</a>
+  </div>
+</header>
+
+<p class="note"><strong>Regla del proyecto:</strong> algo no está terminado hasta que se generó y se probó de punta a punta (compilado o ejecutado). Escrito no es lo mismo que probado. Estimación propia: 3 días de lógica, 1–2 días de JSON y varios días de pruebas.</p>
+
+<h2 id="arq">Arquitectura</h2>
+<pre class="mermaid">
+%%{init: {'theme':'neutral'}}%%
+flowchart LR
+U["Usuario"] --> T["CLI / TUI"]
+Q[("Preguntas en JSON")] --> T
+T --> R["Respuestas + comando equivalente"]
+R --> P["Plan con riesgos"]
+P -->|confirma| C["create-project-core"]
+IDX["index.json → X-config.json → templates"] --> RD["reader → InfoLenguaje"]
+RD --> C
+INS["environment-installer + tools-catalog"] --> C
+C --> W["writer dirs / files"]
+C --> I["tool-initializer: git, gh, glab"]
+C --> E["generadores externos: Copier, Yeoman"]
+W --> OUT["Proyecto generado"]
+I --> OUT
+E --> OUT
+</pre>
+
+<h2 id="ruta">Ruta de versiones</h2>
+<pre class="mermaid">
+%%{init: {'theme':'neutral'}}%%
+flowchart LR
+A["v0.1 Motor + Aprendizaje"] --> B["v0.2 Cuestionario y plan"] --> C["v0.3 Instalador y doctor"] --> D["v0.4 Config de usuario"] --> E["v0.5 Nivel Medio y plataformas"] --> F["v0.6+ Avanzado y extensión"]
+</pre>
+
+<h2>Hecho y verificado</h2>
+<div class="card ok"><ul class="ok">
+<li>Bug del writer original (creaba un archivo <code>Length</code>) corregido en <code>write_file</code>; UTF-8 sin BOM y no pisa archivos.</li>
+<li>Writer en .NET puro, sin cmdlets del sistema; solo <code>git</code> es externo.</li>
+<li>Dividido en <code>writer-dirs</code>, <code>writer-files</code> y <code>create-project-core</code>, probado junto (Python y C++, git en <code>main</code>). <code>copy_files</code> reconstruido.</li>
+<li><code>main.c</code> de los 3 niveles compila con <code>-Wall -Wextra</code>; <code>CMakeLists.txt</code> compartido C/C++ compila con cmake.</li>
+<li><code>environment-installer</code>: detección de SO y gestor verificada en Linux/apt (el <code>Read-Host</code> no se pudo probar).</li>
+<li><code>tools-catalog.json</code> válido y revisado; historial de git sin secretos; estructura modular de config.</li>
+<li>Medido: copiar 200 archivos pequeños tarda ~46 ms en secuencial y ~1550 ms con <code>-Parallel</code>; pwsh arranca en ~230 ms.</li>
+</ul></div>
+
+<h2 id="hitos">Hitos</h2>
+<div class="grid">
+
+<section class="card v"><h3><span class="tag">v0.1</span>Motor + Aprendizaje</h3><p>Python, C, JS, HTML de punta a punta.</p><ul>
+<li><code>InfoLenguaje</code> + <code>reader-json</code> (yaml/toml después); <code>reader-general</code> elige por extensión.</li>
+<li><code>index.json</code> → <code>X-config.json</code> → <code>templates/</code> con <code>plantilla</code> y <code>valores</code>.</li>
+<li>Marcadores <code>{{…}}</code> y aviso si queda uno sin reemplazar.</li>
+<li>Copiador salta <code>.gitkeep</code>/<code>.null</code>. <code>.null</code> = no aplica, <code>.gitkeep</code> = pendiente.</li>
+<li>Core solo orquesta; git opcional con confirmación.</li>
+<li><code>X-config</code>: version, extensiones, carpetas, niveles 1–3; <code>comando_init</code> ≠ <code>comando_prueba</code>.</li>
+<li>Python y C en 3 niveles, JS y HTML nivel 1, <code>APRENDE.md</code>.</li>
+<li>Pester genérico que omite si falta la herramienta; requiere PowerShell 7+.</li>
+<li>Copiador y carpetas en secuencial.</li></ul></section>
+
+<section class="card v"><h3><span class="tag">v0.2</span>Cuestionario y plan</h3><ul>
+<li>Preguntas como datos JSON: de ahí salen la TUI, los flags y el archivo de respuestas.</li>
+<li>Mostrar el comando equivalente (solo texto; probar bash y PowerShell).</li>
+<li>Plan con riesgo bajo/medio/alto: <code>[s]</code> todo, <code>[b]</code> solo bajo, <code>[n]</code> cancelar.</li>
+<li><code>--plan</code> simulación y modo sin preguntas; flags en español con alias.</li>
+<li>Sobrescritura (propuesta): respeta contenido, rellena vacíos, lote s/n/todos/ninguno, <code>.example</code>, resumen.</li>
+<li><code>project.json</code> con respuestas y versión, sin datos sensibles.</li>
+<li>Logger, validación, defaults, ayuda, aviso de correo visible, próximos pasos.</li></ul></section>
+
+<section class="card v"><h3><span class="tag">v0.3</span>Instalador y doctor</h3><ul>
+<li><code>tools-catalog.json</code> con apt, pacman y winget; comando exacto y confirmación.</li>
+<li><code>sudo -v</code>; nunca se guardan contraseñas.</li>
+<li>Sin gestor: cancelar y mostrar pasos manuales con enlace oficial.</li>
+<li>No descarga instaladores de la web; avisar de reiniciar la terminal.</li>
+<li><code>andamio doctor</code> (nombre por decidir: doctor, revisar, chequeo, salud).</li>
+<li><code>comando_init</code> oficial opcional y registro de su versión.</li>
+<li>Casos raros: vscode (repo de Microsoft en apt), cargo (versión vieja), gnucobol (AUR), gfortran (MSYS2), vercel (fuera), C# = SDK de dotnet.</li></ul></section>
+
+<section class="card v"><h3><span class="tag">v0.4</span>Config de usuario y externa</h3><ul>
+<li>Carpeta al primer uso: <code>%APPDATA%\andamio</code>, <code>~/.config/andamio</code>, <code>~/Library/Application Support/andamio</code>.</li>
+<li><code>preferencias.json</code>, <code>perfiles/</code>, <code>plantillas/</code>, <code>registro/</code>. Prioridad: proyecto &gt; usuario &gt; interna.</li>
+<li><code>-Config archivo</code> con <code>"extiende"</code>; <code>andamio config</code>; errores con línea exacta.</li>
+<li>Una config externa define estructura, no comandos, salvo autorización.</li>
+<li>Retrocompatibilidad: <code>version</code> en todo, reglas en JSON, <code>"rules": null</code> real (no el texto), <code>[a]</code>ctualizar con <code>.bak</code> / <code>[t]</code>raducir / <code>[v]</code>er, últimas 3 versiones, ejemplos en <code>tests/</code>.</li>
+<li>Perfiles guardados: <code>andamio nuevo --perfil mi-api</code>.</li></ul></section>
+
+<section class="card v"><h3><span class="tag">v0.5</span>Nivel Medio y plataformas</h3><ul>
+<li>Nivel 2: Python, C, C++, JS y web básica; pre-commit, CI simple, changelog.</li>
+<li>Selector GitHub / GitLab / ambos / ninguna.</li>
+<li>GitHub: workflow por lenguaje, plantillas, dependabot. GitLab: <code>.gitlab-ci.yml</code> orquestador, <code>issue_templates</code> + <code>merge_request_templates</code>, Renovate.</li>
+<li><code>gh</code>/<code>glab</code>: repo remoto privado por defecto y con confirmación.</li>
+<li>Pendiente: Java sin soporte en pre-commit/CI/VS Code, Ruby sin ganchos, pre-commit desactualizado, <code>tasks.json</code> fijo, <code>node-ci</code> con <code>npm ci</code>.</li>
+<li>web-static y web-sql con contenido válido (sin <code>package.json</code> vacío).</li></ul></section>
+
+<section class="card v"><h3><span class="tag">v0.6+</span>Avanzado y proyectos grandes</h3><ul>
+<li>Nivel 3: Rust, Go, Python (+ TS, Java, Ruby, PowerShell, web con servidor y SQL, multi-lenguaje).</li>
+<li>Modo agregar a proyecto existente; subir de nivel sin pisar.</li>
+<li>Estructura <code>apps/ services/ libs/</code>; CI solo de lo que cambió; org y licencia parametrizables.</li>
+<li>Perfiles: distro, multilanguage, web-static, web-sql.</li>
+<li>Generadores externos (Copier, Yeoman, cargo generate, dotnet new): se lanzan, no se renderizan. Riesgo alto, comando desde tabla interna, nunca <code>--trust</code> automático; el catálogo indica qué requiere cada uno.</li>
+<li>Framework de plantillas: <code>andamio plantilla nueva</code> y <code>validar</code> (esquema JSON + <code>comando_prueba</code>).</li>
+<li>Docker, Kubernetes, catálogos npm/pip y actualizar proyectos ya generados (modelo Copier).</li></ul></section>
+
+<section class="card"><h3><span class="tag">Después</span>Largo plazo</h3><ul>
+<li>Extensión de VS Code (TypeScript) como capa fina sobre el motor.</li>
+<li>Ejecutable de Windows con <code>ps2exe -Core</code> (sigue necesitando PowerShell y git).</li>
+<li>Publicar con winget, npm o pipx; cargar configs desde un repo git.</li>
+<li>~20 lenguajes en ~5 meses, con <code>estado</code> probado/experimental y un CI mensual que verifique los paquetes.</li>
+<li>Pulido visual: animación ASCII propia donde la barra de progreso es un andamio que se arma. ASCII por defecto, <code>--sin-animacion</code>, <code>NO_COLOR</code>, cuadros como datos.</li>
+<li>IA propia: descartada; solo contexto para agentes en <code>AGENTS/</code>, generado con datos reales del proyecto.</li></ul></section>
+
+</div>
+
+<h2 id="lang">Lenguajes</h2>
+<div class="wrap"><table>
+<tr><th>Lenguaje</th><th>Estado</th><th>Notas</th></tr>
+<tr><td>Python</td><td class="s ok">Listo</td><td>JSON y plantillas; <code>pyproject.toml</code> en nivel 3.</td></tr>
+<tr><td>C</td><td class="s wip">3 main.c probados</td><td>Faltan typos, <code>gcc</code> vs <code>clang</code> y la ruta <code>src/</code> vs <code>core/</code>.</td></tr>
+<tr><td>C++</td><td class="s no">Pendiente</td><td>Comparte CMake, <code>.clang-tidy</code> y <code>.clangd</code> con C.</td></tr>
+<tr><td>JavaScript, HTML</td><td class="s no">Pendiente (v0.1)</td><td>TypeScript comparte <code>package.json</code>.</td></tr>
+<tr><td>C#</td><td class="s no">Pendiente</td><td>Instala el SDK de .NET; <code>dotnet new console</code>.</td></tr>
+<tr><td>Go, Java, Rust, Ruby</td><td class="s no">Pendiente</td><td>Java: <code>default-jdk</code>, <code>jdk-openjdk</code>, <code>Microsoft.OpenJDK.21</code>.</td></tr>
+<tr><td>COBOL</td><td class="s no">Pendiente</td><td>Proyecto propio planeado; en Arch solo vía AUR; sin winget.</td></tr>
+<tr><td>Fortran</td><td class="s no">Pendiente</td><td>Sin winget; en Windows requiere MSYS2.</td></tr>
+<tr><td>Objective-C, Swift</td><td class="s no">Parcial</td><td>Dependen de clang/macOS; sin camino limpio en los 3 gestores.</td></tr>
+</table></div>
+<p class="note">Antes de dar un lenguaje por terminado: investigar <code>comando_init</code> e instalador, generarlo de verdad y correr su <code>comando_prueba</code>. Cada uno trae al menos una sorpresa.</p>
+
+<h2 id="dec">Decisiones de diseño</h2>
+<div class="grid">
+<div class="card"><ul>
+<li>Datos en JSON, lógica en <code>.ps1</code>.</li>
+<li>Plantillas = archivos reales con <code>{{MARCADOR}}</code>; sin Jinja, para que compilen tal cual.</li>
+<li>Los comandos salen de una tabla interna, nunca de un archivo de respuestas ni de una config externa.</li>
+<li>Nunca se guarda una contraseña.</li>
+<li>No se pisan archivos con contenido.</li>
+<li>Un solo modelo interno, <code>InfoLenguaje</code>.</li></ul></div>
+<div class="card"><ul>
+<li>Agregar un lenguaje o formato es sumar, no modificar.</li>
+<li>Los niveles son sugerencias, no muros.</li>
+<li>Solo apt, pacman y winget en v0.x.</li>
+<li><code>comando_init</code> ≠ <code>comando_prueba</code>.</li>
+<li>Nombres técnicos en inglés; contenido y mensajes en español.</li>
+<li>Sin probar no está terminado.</li></ul></div>
+</div>
+
+<h2 id="desc">Descartado o fuera de alcance</h2>
+<div class="wrap"><table>
+<tr><th>Idea</th><th>Por qué no</th></tr>
+<tr><td>Terraform</td><td>Sin backend ni nube en Andamio; retomar solo si algún día lo hay.</td></tr>
+<tr><td>IA propia</td><td>Predecible, sin llaves ni costo, más fácil de mantener; la guía es automatizada con reglas fijas.</td></tr>
+<tr><td>Auto-instalar gestores desde la web</td><td>Es ejecutar código remoto con privilegios. Si algún día, opcional y tras un flag explícito.</td></tr>
+<tr><td>Contraseña en un JSON</td><td>Queda en disco si el proceso se interrumpe y puede sincronizarse a la nube.</td></tr>
+<tr><td><code>vercel</code> en el catálogo</td><td>No es un paquete de sistema; iría en el catálogo de npm.</td></tr>
+<tr><td>Docker para usuarios finales</td><td>Andamio escribe en el disco del usuario; solo sirve como entorno de desarrollo.</td></tr>
+<tr><td>Jinja en las plantillas</td><td>Rompe que sean archivos que compilan. Se integra delegando, no renderizando.</td></tr>
+<tr><td>Cientos de lenguajes escritos por una persona</td><td>La arquitectura permite aportes de ~10 min, pero cada lenguaje exige investigar y probar.</td></tr>
+</table></div>
+
+<h2 id="limp">Limpieza pendiente</h2>
+<div class="grid">
+<div class="card"><h3>Estructura y código</h3><ul>
+<li><code>especifcs</code> → <code>especificos</code>.</li>
+<li><code>.gitlab/template</code> → <code>issue_templates</code> y <code>merge_request_templates</code>.</li>
+<li><code>Data/</code> contiene también lógica; nombre engañoso (opcional).</li>
+<li>Carpetas vacías no viajan en git: usar <code>.null</code> o <code>.gitkeep</code>.</li>
+<li><code>create_struct</code> aún lee el <code>config.json</code> viejo.</li>
+<li>Rutas de <code>LICENSE_*</code> y <code>CODE_OF_CONDUCT</code> apuntan a la estructura vieja.</li>
+<li><code>core/main.ps1</code> con código de demostración y valores fijos.</li>
+<li><code>init_git</code> debe comprobar que git exista.</li></ul></div>
+<div class="card"><h3>Plantilla de C y repo</h3><ul>
+<li>Typos: «yo» duplicado y «configuraaciones».</li>
+<li>El comentario dice <code>gcc</code> pero el catálogo instala <code>clang</code>.</li>
+<li>Confirmar que <code>src/main.c</code> coincida con la <code>ruta</code> de <code>c-config.json</code>.</li>
+<li>Archivos duplicados raíz vs <code>include/</code> con tamaños distintos: decidir cuál se distribuye.</li>
+<li>Archivos vacíos históricos: <code>AGENTS.md</code>, <code>CHANGELOG.md</code>, <code>GEMINI.md</code>, <code>CHAT_GPT.md</code>.</li>
+<li><code>CLAUDE.md</code> genérico de ~55 KB: sustituir por contexto generado.</li>
+<li>El README promete más de lo que el código hace hoy.</li></ul></div>
+</div>
+
+<h2 id="tesis">Tesis y evidencia</h2>
+<div class="card"><ul>
+<li>Una afirmación central; lo demás la sostiene: niveles de aprendizaje, plantillas sin motor y español. Extensiones: interoperabilidad, framework de plantillas y contexto para agentes.</li>
+<li>Evidencia: medir cuánto tarda alguien en tener su primer programa corriendo, con y sin Andamio, con 5–10 personas reales y sin ayudarles.</li>
+<li>No vender rendimiento: se midió y el paralelo era ~30× más lento en archivos pequeños.</li>
+<li>Repo privado hasta pulirlo; antes de publicar, revisar el correo de los commits (noreply) y opcionalmente <code>gitleaks</code>.</li>
+<li>Meta de distribución: README honesto, GIF de la TUI, <code>CONTRIBUTING</code> con «cómo agregar un lenguaje», versionado 0.x con changelog y tags.</li></ul></div>
+
+<footer>El detalle completo de cada punto sigue en <code>ROADMAP.md</code>.</footer>
+</main>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="/_runtime/mermaid-11.16.1.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+</body>
+</html>

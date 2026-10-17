@@ -1,0 +1,399 @@
+{
+  "tools": {
+    "git": {
+      "name": "Git",
+      "description": "Sistema de control de versiones distribuido.",
+      "check": {
+        "command": "git",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "git"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "git"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Git.Git", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "gcc": {
+      "name": "GCC",
+      "description": "Compilador de C y C++ de GNU.",
+      "note": "Sin id de winget verificado para MinGW/GCC. En Windows tratar como 'sin instalador automático' hasta comprobar un paquete estable (por ejemplo, alguna distribución de WinLibs).",
+      "check": {
+        "command": "gcc",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "gcc"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "gcc"],
+          "elevate": true
+        },
+        "winget": null
+      }
+    },
+    "clang": {
+      "name": "Clang",
+      "description": "Compilador de C, C++ y Objective-C basado en LLVM.",
+      "note": "En winget instala todo LLVM y puede pedir elevación (UAC) por su cuenta.",
+      "check": {
+        "command": "clang",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "clang"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "clang"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "LLVM.LLVM", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "cmake": {
+      "name": "CMake",
+      "description": "Sistema de gestión de compilación multiplataforma.",
+      "check": {
+        "command": "cmake",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "cmake"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "cmake"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Kitware.CMake", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "python3": {
+      "name": "Python",
+      "description": "Lenguaje interpretado de alto nivel.",
+      "note": "En Windows el comando suele ser 'python' (o 'py'), no 'python3'; ajustar el check por plataforma. La versión del id de winget (3.12) está fijada a propósito.",
+      "check": {
+        "command": "python3",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "python3"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "python"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Python.Python.3.12", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "description": "Entorno de ejecución de JavaScript basado en V8.",
+      "check": {
+        "command": "node",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "nodejs", "npm"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "nodejs", "npm"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "OpenJS.NodeJS", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "cargo": {
+      "name": "Rust (Cargo)",
+      "description": "Gestor de paquetes y sistema de compilación de Rust.",
+      "note": "apt y pacman instalan una versión de Rust fija y desactualizada, sin rustup para gestionar versiones. En winget se instala Rustup, que es otra cosa. Es una limitación conocida; considerar rustup.rs como alternativa futura.",
+      "check": {
+        "command": "cargo",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "cargo"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "rust"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Rustlang.Rustup", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "go": {
+      "name": "Go",
+      "description": "Lenguaje compilado de Google, orientado a servicios y CLI.",
+      "check": {
+        "command": "go",
+        "args": ["version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "golang-go"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "go"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "GoLang.Go", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "java": {
+      "name": "Java (OpenJDK)",
+      "description": "Kit de desarrollo de Java.",
+      "note": "La versión del id de winget (21) está fijada a propósito.",
+      "check": {
+        "command": "java",
+        "args": ["-version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "default-jdk"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "jdk-openjdk"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Microsoft.OpenJDK.21", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "dotnet": {
+      "name": ".NET SDK (C#)",
+      "description": "SDK oficial de .NET; incluye el compilador Roslyn (csc) y 'dotnet new'.",
+      "note": "La versión del SDK (8.0) está fijada a propósito.",
+      "check": {
+        "command": "dotnet",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "dotnet-sdk-8.0"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "dotnet-sdk"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Microsoft.DotNet.SDK.8", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "ruby": {
+      "name": "Ruby",
+      "description": "Lenguaje interpretado dinámico.",
+      "note": "La versión del id de winget (3.3) está fijada a propósito.",
+      "check": {
+        "command": "ruby",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "ruby-full"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "ruby"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "RubyInstallerTeam.Ruby.3.3", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "gfortran": {
+      "name": "GFortran",
+      "description": "Compilador de Fortran de GNU.",
+      "note": "Sin paquete winget nativo confiable; en Windows normalmente requiere MSYS2 (fuera del alcance de winget directo). Tratar como 'sin instalador automático en Windows' por ahora.",
+      "check": {
+        "command": "gfortran",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "gfortran"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "gcc-fortran"],
+          "elevate": true
+        },
+        "winget": null
+      }
+    },
+    "gnucobol": {
+      "name": "GnuCOBOL",
+      "description": "Compilador de COBOL de código abierto (cobc).",
+      "note": "En Arch, gnucobol solo está disponible vía AUR, no en los repos oficiales: el instalador de pacman usa 'yay' (ayudante de AUR) y falla en un Arch limpio sin él. El AUR es contenido de usuarios sin revisión, así que requiere confirmación explícita. Sin paquete winget conocido y estable. Verificar que 'gnucobol4' exista en la versión de Debian/Ubuntu usada.",
+      "check": {
+        "command": "cobc",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "gnucobol4"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "yay",
+          "args": ["-S", "--noconfirm", "gnucobol"],
+          "elevate": false
+        },
+        "winget": null
+      }
+    },
+    "docker": {
+      "name": "Docker",
+      "description": "Plataforma de contenedores.",
+      "note": "En Windows instala Docker Desktop, que puede requerir licencia de pago en empresas grandes y suele pedir elevación (UAC). En apt se instala 'docker.io'.",
+      "check": {
+        "command": "docker",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "docker.io"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "docker"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Docker.DockerDesktop", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "kubectl": {
+      "name": "kubectl (Kubernetes CLI)",
+      "description": "Cliente de línea de comandos para Kubernetes.",
+      "check": {
+        "command": "kubectl",
+        "args": ["version", "--client"]
+      },
+      "installers": {
+        "apt": {
+          "command": "apt-get",
+          "args": ["install", "-y", "kubectl"],
+          "elevate": true
+        },
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "kubectl"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Kubernetes.kubectl", "-e"],
+          "elevate": false
+        }
+      }
+    },
+    "vscode": {
+      "name": "Visual Studio Code",
+      "description": "Editor de código de Microsoft.",
+      "note": "En apt requiere agregar antes el repositorio oficial de Microsoft; 'apt-get install code' falla en una instalación limpia sin ese paso previo. Tratar como 'sin instalador automático en apt' por ahora, o resolverlo agregando el repo antes de este comando.",
+      "check": {
+        "command": "code",
+        "args": ["--version"]
+      },
+      "installers": {
+        "apt": null,
+        "pacman": {
+          "command": "pacman",
+          "args": ["-S", "--noconfirm", "code"],
+          "elevate": true
+        },
+        "winget": {
+          "command": "winget",
+          "args": ["install", "--id", "Microsoft.VisualStudioCode", "-e"],
+          "elevate": false
+        }
+      }
+    }
+  }
+}

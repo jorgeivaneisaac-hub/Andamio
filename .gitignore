@@ -147,3 +147,5 @@ repomix/output/*
 # Relases
 #===============================================================================
 RELEASES/*
+Docker/template-ps1.tar
+notes/
