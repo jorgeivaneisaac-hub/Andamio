@@ -1,5 +1,5 @@
 # Usamos una imagen limpia de Linux Alpine (Evita las URLs de Microsoft)
-FROM alpine:3.20 AS runner
+FROM alpine:3.24 AS runner
 
 # Instalamos PowerShell 7 directamente desde los repositorios de Linux
 RUN apk add --no-cache powershell
